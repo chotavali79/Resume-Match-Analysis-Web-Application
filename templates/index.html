@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Analyzer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #f2f6fc, #dbe9f6);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        label {
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        h3 {
+            color: #27ae60;
+        }
+
+        h4 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        p {
+            color: red;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Resume Analyzer</h2>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label>Upload Resume (PDF, DOCX, TXT):</label><br>
+            <input type="file" name="resume" required><br><br>
+
+            <label>Paste Job Description:</label><br>
+            <textarea name="jd" rows="10" placeholder="Paste job description here..." required></textarea><br><br>
+
+            <input type="submit" value="Analyze">
+        </form>
+
+        {% if score is defined %}
+            <h3>Match Score: {{ score }}%</h3>
+            <h4>Resume Content:</h4>
+            <pre>{{ resume_content }}</pre>
+            <h4>Job Description:</h4>
+            <pre>{{ jd_content }}</pre>
+        {% endif %}
+
+        {% if error %}
+            <p>{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
